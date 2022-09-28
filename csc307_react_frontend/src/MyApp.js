@@ -16,6 +16,10 @@ function MyApp() {
     setCharacters([...characters, person]);
   }
 
+  function test() {
+    console.log("testing");
+  }
+
   return (
     <div className="container">
       <Table characterData={characters} removeCharacter={removeOneCharacter} />
