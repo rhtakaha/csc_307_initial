@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 5000;
 const cors = require("cors");
+const crypto = require("crypto");
 
 const users = {
   users_list: [
@@ -89,6 +90,7 @@ app.post("/users", (req, res) => {
 });
 
 function addUser(user) {
+  user.id = idGenerator();
   users["users_list"].push(user);
 }
 
@@ -116,3 +118,8 @@ const findUserByNameAndJob = (name, job) => {
     (user) => user["name"] === name && user["job"] === job
   );
 };
+
+//randomly generate an ID to be appending to incoming characters
+function idGenerator() {
+  return crypto.randomBytes(3).toString("hex");
+}
