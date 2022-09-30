@@ -13,10 +13,32 @@ function MyApp() {
   }, []);
 
   function removeOneCharacter(index) {
-    const updated = characters.filter((character, i) => {
-      return i !== index;
+    // const updated = characters.filter((character, i) => {
+    //   return i !== index;
+    // });
+    // setCharacters(updated);
+
+    // take the index and then use that to get the person to send the delete
+    makeDeleteCall(characters[index]).then((result) => {
+      if (result && result.status === 204) {
+        //if it worked then refetch the current characters
+        fetchAll().then((result) => {
+          if (result) setCharacters(result);
+        });
+      }
     });
-    setCharacters(updated);
+  }
+
+  async function makeDeleteCall(person) {
+    try {
+      const response = await axios.delete(
+        "http://localhost:5000/users/" + person.id
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 
   function updateList(person) {
