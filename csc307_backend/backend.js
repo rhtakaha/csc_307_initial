@@ -85,12 +85,14 @@ function findUserById(id) {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  userToAdd.id = idGenerator();
   addUser(userToAdd);
-  res.status(201).end();
+  //res.send(userToAdd);
+  res.status(201).send(userToAdd).end();
 });
 
 function addUser(user) {
-  user.id = idGenerator();
+  //user.id = idGenerator();
   users["users_list"].push(user);
 }
 
