@@ -32,7 +32,7 @@ function MyApp() {
   async function makeDeleteCall(person) {
     try {
       const response = await axios.delete(
-        "http://localhost:5000/users/" + person.id
+        "http://localhost:5000/users/" + person._id
       );
       return response;
     } catch (error) {
@@ -52,7 +52,7 @@ function MyApp() {
   async function fetchAll() {
     try {
       const response = await axios.get("http://localhost:5000/users");
-      return response.data.users_list;
+      return response.data /*.users_list*/;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
       console.log(error);

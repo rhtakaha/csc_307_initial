@@ -63,6 +63,7 @@ app.get("/users", async (req, res) => {
   } else {
     //get all users
     let result = await user_change.getUsers(undefined, undefined);
+    //console.log(JSON.stringify(result));
     res.send(result);
   }
   res.status(200).end(); //always sending something
@@ -88,12 +89,13 @@ app.get("/users/:id", async (req, res) => {
 //   //return users['users_list'].filter( (user) => user['id'] === id);
 // }
 
-app.post("/users", (req, res) => {
+app.post("/users", async (req, res) => {
   const userToAdd = req.body;
   // userToAdd.id = idGenerator();
   // addUser(userToAdd);
-  user_change.addUser(userToAdd);
-  res.status(201).send(userToAdd).end();
+  let result = await user_change.addUser(userToAdd); //send back user WITH ID
+  //console.log("user sent back at post: " + JSON.stringify(result));
+  res.status(201).send(result).end();
 });
 
 // function addUser(user) {
